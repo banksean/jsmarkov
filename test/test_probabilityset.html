@@ -1,0 +1,63 @@
+<html>
+ <head>
+  <title>Test Page for ProbabilitySet</title>
+  <script language="javascript" src="jsunit/jsUnitCore.js"></script>
+  <script language="javascript" src="probabilityset.js"></script>
+ </head>
+ <body>
+  <script type="text/javascript">
+    function testSmoke() {
+      var ps = new ProbabilitySet();
+    }
+    
+    function testAdd() {
+      var ps = new ProbabilitySet();
+      ps.add("a", 1);
+      assertEquals("a", ps.selectRandom());
+    }
+    
+    function testSelectRandom() {
+      var ps = new ProbabilitySet();
+      ps.add("a", 10);
+      ps.add("b", 20);
+      ps.add("c", 70);
+      
+      var results = {a:0, b:0, c:0};
+      
+      for (var i=0; i<1000; i++) {
+        results[ps.selectRandom()]++;
+      }
+            
+      assertTrue("10", Math.abs(100 - results["a"]) < 100);
+      assertTrue("20", Math.abs(200 - results["b"]) < 100);
+      assertTrue("80", Math.abs(700 - results["c"]) < 100);      
+    }
+    
+    function testIncrement() {
+      var ps = new ProbabilitySet();
+      
+      for (var i=0; i<10; i++) {
+        ps.increment("a");
+      }
+      
+      for (var i=0; i<20; i++) {
+        ps.increment("b");
+      }
+      
+      for (var i=0; i<70; i++) {
+        ps.increment("c");
+      }
+      
+      var results = {a:0, b:0, c:0};
+      
+      for (var i=0; i<1000; i++) {
+        results[ps.selectRandom()]++;
+      }
+            
+      assertTrue("10", Math.abs(100 - results["a"]) < 100);
+      assertTrue("20", Math.abs(200 - results["b"]) < 100);
+      assertTrue("80", Math.abs(700 - results["c"]) < 100);      
+    }
+  </script>
+ </body>
+</html>

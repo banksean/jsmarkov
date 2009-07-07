@@ -1,0 +1,33 @@
+<html>
+ <head>
+  <title>Test Page for Markov</title>
+  <script language="javascript" src="jsunit/jsUnitCore.js"></script>
+  <script language="javascript" src="../probabilityset.js"></script>
+  <script language="javascript" src="../markov.js"></script>
+ </head>
+ <body>
+  <script type="text/javascript">
+    function ttestSmoke() {
+      var m = new Markov();
+    }
+    
+    function ttestTrain() {
+      var m = new Markov();
+      m.train("a b c d e f g h i j k l m n o p q r s t u v w x y z");
+      assertNotNull(m.randomStart());
+      assertEquals(2, m.randomStart().length);
+      
+      var res = m.generate(m.randomStart(), 10);
+      assertNotNull(res);
+    }
+    
+    function testTrainWithExtraWhitespace() {
+      var m = new Markov();
+      m.train("a  b  c    d  e    f g h i    j k  \n l m n   \n o p q r s t u v w x y z");
+      assertEquals(undefined, m.matrix["a "]);
+      assertEquals(undefined, m.matrix["c "]);
+      assertEquals(undefined, m.matrix["k \n"]);
+    }
+  </script>
+ </body>
+</html>
