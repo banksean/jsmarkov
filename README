@@ -1,0 +1,3 @@
+This is a Markov Chain implemented in JavaScript.
+
+You can find an example of how it's used in ./example/palin.html or here: http://www.cricketschirping.com/jsmarkov/palin.html
